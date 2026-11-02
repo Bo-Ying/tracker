@@ -8,3 +8,7 @@ Search `topic:<t> stars:>=100 fork:false archived:false` per topic, splitting st
 ## Acceptance
 - Union per column, deduplicated by repo id.
 - Range splitting covered by a test with a fake client.
+
+## Comments
+
+- 2026-11-02: implemented in 78726b1; tests pass (31). 07 still needs its first run on GitHub.

@@ -7,3 +7,7 @@ Cron `0 0 * * 1` + `workflow_dispatch`. Update → commit data → build → dep
 
 ## Acceptance
 - Workflow file lints; first manual run on GitHub succeeds.
+
+## Comments
+
+- 2026-11-02: implemented in 78726b1; tests pass (31). 07 still needs its first run on GitHub.

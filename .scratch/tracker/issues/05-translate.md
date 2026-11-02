@@ -7,3 +7,7 @@ Batch-translate uncached descriptions with `claude-haiku-5-5` (structured JSON o
 
 ## Acceptance
 - Tests with a fake client: cache hits skip the API; each error class goes to the right bucket.
+
+## Comments
+
+- 2026-11-02: implemented in 78726b1; tests pass (31). 07 still needs its first run on GitHub.

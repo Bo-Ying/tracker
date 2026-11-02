@@ -7,3 +7,7 @@ Jinja2 → `_site/`: latest issue at `/`, every issue at `/issues/<label>/`, arc
 
 ## Acceptance
 - Build from fixture issues produces all pages; smoke test checks key content.
+
+## Comments
+
+- 2026-11-02: implemented in 78726b1; tests pass (31). 07 still needs its first run on GitHub.

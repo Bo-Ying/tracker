@@ -7,3 +7,7 @@ Hot: top 10 by gain over `max(now−30d, earliest snapshot)`. Rising: top 10 by 
 
 ## Acceptance
 - Tests for each rule above.
+
+## Comments
+
+- 2026-11-02: implemented in 78726b1; tests pass (31). 07 still needs its first run on GitHub.
