@@ -1,13 +1,13 @@
 {
  "label": "2026-W44",
- "generated_at": "2026-11-02T14:32:07Z",
+ "generated_at": "2026-11-02T14:55:53Z",
  "status": "baseline",
  "window": {
-  "end": "2026-11-02T14:32:07Z",
+  "end": "2026-11-02T14:55:53Z",
   "hot_start": "2026-11-02T13:53:52Z",
   "hot_days": 0,
   "hot_target_days": 30,
-  "rising_start": "2026-10-26T14:32:07Z",
+  "rising_start": "2026-10-26T14:55:53Z",
   "rising_days": 0
  },
  "first_rankings_at": "2026-11-09T13:53:52Z",
@@ -41,7 +41,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "面向分析师、量化研究员和 AI 智能体的开放数据平台。"
     },
     {
      "id": 1131513930,
@@ -49,7 +49,7 @@
      "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
      "description": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。  LLM-powered multi-market stock analysis system with multi-source market data, real-time news, decision dashboard, automated notifications, and cost-free scheduled runs.",
      "language": "Python",
-     "stars": 67445,
+     "stars": 67447,
      "gain": 0,
      "growth_pct": null,
      "rank": 2,
@@ -57,7 +57,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。"
     },
     {
      "id": 91629816,
@@ -73,7 +73,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "免费开源的加密货币交易机器人"
     },
     {
      "id": 287463830,
@@ -81,7 +81,7 @@
      "url": "https://github.com/microsoft/qlib",
      "description": "Qlib is an AI-oriented Quant investment platform that aims to use AI tech to empower Quant Research, from exploring ideas to implementing productions. Qlib supports diverse ML modeling paradigms, including supervised learning, market dynamics modeling, and RL, and is now equipped with https://github.com/microsoft/RD-Agent to automate R&D process.",
      "language": "Python",
-     "stars": 49935,
+     "stars": 49936,
      "gain": 0,
      "growth_pct": null,
      "rank": 4,
@@ -89,7 +89,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "Qlib 是一个面向 AI 的量化投资平台，旨在利用 AI 技术赋能量化研究，覆盖从idea探索到生产落地的全流程。Qlib 支持多种机器学习建模范式，包括监督学习、市场动态建模和强化学习（RL），并已集成 https://github.com/microsoft/RD-Agent 以实现研发流程自动化。"
     },
     {
      "id": 31522041,
@@ -97,7 +97,7 @@
      "url": "https://github.com/vnpy/vnpy",
      "description": "基于Python的开源量化交易平台开发框架",
      "language": "Python",
-     "stars": 46200,
+     "stars": 46202,
      "gain": 0,
      "growth_pct": null,
      "rank": 5,
@@ -105,7 +105,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "基于Python的开源量化交易平台开发框架"
     },
     {
      "id": 1198306812,
@@ -113,7 +113,7 @@
      "url": "https://github.com/HKUDS/Vibe-Trading",
      "description": "\"Vibe-Trading: Your Personal Trading Agent\"",
      "language": "Python",
-     "stars": 37444,
+     "stars": 37445,
      "gain": 0,
      "growth_pct": null,
      "rank": 6,
@@ -121,7 +121,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "Vibe-Trading：你的个人交易智能体"
     },
     {
      "id": 849406496,
@@ -137,7 +137,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "FinceptTerminal 是一款现代金融应用，提供先进的市场分析、投资研究和经济数据工具，旨在用户友好的环境中支持交互式探索与数据驱动的决策。"
     },
     {
      "id": 29050338,
@@ -153,7 +153,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "用于交易策略的 Python 回测库"
     },
     {
      "id": 212037775,
@@ -161,7 +161,7 @@
      "url": "https://github.com/akfamily/akshare",
      "description": "AKShare is an elegant and simple financial data interface library for Python, built for human beings! 开源财经数据接口库",
      "language": "Python",
-     "stars": 23175,
+     "stars": 23177,
      "gain": 0,
      "growth_pct": null,
      "rank": 9,
@@ -169,7 +169,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "AKShare 是一个为人类而生、优雅简洁的 Python 金融数据接口库。开源财经数据接口库"
     },
     {
      "id": 27251463,
@@ -185,7 +185,7 @@
      "is_new": false,
      "also_in_list": false,
      "also_in_columns": [],
-     "description_zh": null
+     "description_zh": "QuantConnect 推出的 Lean 算法交易引擎（Python、C#）"
     }
    ]
   }
