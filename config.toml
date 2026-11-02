@@ -29,7 +29,9 @@ topics = [
     "cheatsheet", "learning-resources",
 ]
 # Manual blocklist: full names, e.g. "owner/repo".
-repos = []
+repos = [
+    "dair-ai/Prompt-Engineering-Guide",  # guide/resource collection
+]
 
 [[columns]]
 key = "agents"
