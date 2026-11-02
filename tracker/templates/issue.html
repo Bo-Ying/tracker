@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% from "macros.html" import t %}
+{% block title %}{{ config.title }} · {{ issue.label }}{% endblock %}
+{% block content %}
+{% set w = issue.window %}
+<section class="issue-head">
+  <p class="eyebrow">
+    {% if is_latest %}{{ t("This week", "本期") }}{% else %}{{ t("Past issue", "往期") }}{% endif %}
+    · {{ issue.label }}
+  </p>
+  <h1>{{ t(issue.range_en, issue.range_zh) }} <span class="utc">UTC</span></h1>
+  {% if not is_latest and latest %}
+  <p class="notice">{{ t("You're viewing an older issue.", "你正在看往期内容。") }}
+    <a href="{{ root }}">{{ t("Go to the latest →", "查看最新一期 →") }}</a></p>
+  {% endif %}
+</section>
+
+{% if issue.status == "baseline" %}
+<section class="baseline">
+  <h2>{{ t("Tracking has started", "已开始追踪") }}</h2>
+  <p>{{ t("This is the first snapshot. GitHub doesn't publish when stars were given, so gains are measured between our own weekly snapshots.",
+         "这是第一次快照。GitHub 不公开每个 star 的时间，所以新增数只能用我们自己每周的快照相减得出。") }}</p>
+  <p>{{ t("First rankings: " ~ issue.first_en ~ ".", "第一期榜单：" ~ issue.first_zh ~ "。") }}</p>
+</section>
+{% else %}
+{% for col in issue.columns %}
+<section class="column" id="{{ col.key }}">
+  <h2 class="column-title">{{ t(col.name_en, col.name_zh) }}</h2>
+  <div class="lists">
+    {% for kind in ["hot", "rising"] %}
+    <div class="list list-{{ kind }}">
+      <div class="list-head">
+        {% if kind == "hot" %}
+        <h3>🔥 {{ t("Hot", "热门") }}</h3>
+        <p class="list-desc">
+          {% if w.hot_days >= w.hot_target_days %}
+          {{ t("Most stars gained in the last 30 days", "过去 30 天新增 star 最多") }}
+          {% else %}
+          {{ t("Most stars gained in the last " ~ w.hot_days ~ " days (building up to 30)",
+               "过去 " ~ w.hot_days ~ " 天新增 star 最多（数据积累中，最终为 30 天）") }}
+          {% endif %}
+        </p>
+        {% else %}
+        <h3>📈 {{ t("Rising", "增长最快") }}</h3>
+        <p class="list-desc">{{ t("Fastest 7-day growth, repos with " ~ config.min_stars_rising ~ "+ stars",
+                                  "过去 7 天增长率最高，总 star ≥ " ~ config.min_stars_rising) }}</p>
+        {% endif %}
+      </div>
+      {% set entries = col[kind] %}
+      {% if not entries %}
+      <p class="empty">
+        {% if (kind == "hot" and w.hot_days == 0) or (kind == "rising" and w.rising_days == 0) %}
+        {{ t("Not enough history yet.", "历史数据还不够。") }}
+        {% else %}
+        {{ t("No qualifying repos this week.", "本期没有符合条件的项目。") }}
+        {% endif %}
+      </p>
+      {% else %}
+      <ol class="cards">
+        {% for e in entries %}
+        <li class="card">
+          <div class="rank">
+            <span class="rank-num">{{ e.rank }}</span>
+            {% if e.is_new %}<span class="move new" title="New">🆕</span>
+            {% elif e.prev_rank and e.prev_rank > e.rank %}<span class="move up">↑{{ e.prev_rank - e.rank }}</span>
+            {% elif e.prev_rank and e.prev_rank < e.rank %}<span class="move down">↓{{ e.rank - e.prev_rank }}</span>
+            {% elif e.prev_rank %}<span class="move same">–</span>{% endif %}
+          </div>
+          <div class="body">
+            <a class="repo" href="{{ e.url }}" target="_blank" rel="noopener">
+              <span class="owner">{{ e.full_name.split("/")[0] }}/</span><span class="name">{{ e.full_name.split("/", 1)[1] }}</span>
+            </a>
+            {% if e.description %}
+            <p class="desc">
+              <span class="en">{{ e.description }}</span><span class="zh">{{ e.description_zh or e.description }}</span>
+            </p>
+            {% endif %}
+            <div class="meta">
+              {% if e.language %}<span class="lang">{{ e.language }}</span>{% endif %}
+              <span class="stars" title="Total stars">★ {{ e.stars|num }}</span>
+              {% if e.also_in_list %}
+              <span class="badge">{% if kind == "hot" %}{{ t("Also Rising", "也在增长榜") }}{% else %}{{ t("Also Hot", "也在热门榜") }}{% endif %}</span>
+              {% endif %}
+              {% for other in e.also_in_columns %}{% set oc = columns_meta.get(other) %}{% if oc %}
+              <span class="badge badge-alt">{{ t("Also in " ~ oc.name_en, "也在" ~ oc.name_zh) }}</span>
+              {% endif %}{% endfor %}
+            </div>
+          </div>
+          <div class="metric">
+            {% if kind == "hot" %}
+            <span class="metric-main">{{ e.gain|signed }}</span>
+            <span class="metric-sub">{{ t("stars", "star") }}</span>
+            {% else %}
+            <span class="metric-main">{{ e.growth_pct|pct }}</span>
+            <span class="metric-sub">{{ e.gain|signed }} ★</span>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endif %}
+<p class="generated">{{ t("Updated " ~ issue.generated_en, "更新于 " ~ issue.generated_zh) }}</p>
+{% endblock %}

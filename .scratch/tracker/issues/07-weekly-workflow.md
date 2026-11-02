@@ -1,0 +1,9 @@
+# 07 — Weekly GitHub Actions workflow
+
+Status: ready-for-agent
+Blocked by: 05, 06
+
+Cron `0 0 * * 1` + `workflow_dispatch`. Update → commit data → build → deploy to Pages → fail the run if a translation config error was flagged. Concurrency guard.
+
+## Acceptance
+- Workflow file lints; first manual run on GitHub succeeds.

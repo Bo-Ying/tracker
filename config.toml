@@ -1,0 +1,50 @@
+# Configuration for the weekly tracker. Edit freely; the next run picks it up.
+
+[site]
+title = "Tracker"
+# Public URL, used for links in the page header only.
+base_url = "https://bo-ying.github.io/tracker/"
+
+[ranking]
+list_size = 10
+# Repos below this many stars are not tracked at all.
+min_stars_candidate = 100
+# Rising list only considers repos with at least this many stars now.
+min_stars_rising = 500
+hot_days = 30
+rising_days = 7
+
+[translation]
+# Claude model used to translate descriptions into Chinese.
+# If Anthropic retires it, the run is marked failed and you change this line.
+model = "claude-haiku-5-5"
+
+[exclude]
+# Resource collections, not software projects.
+name_prefixes = ["awesome"]
+topics = [
+    "awesome", "awesome-list", "awesome-lists", "curated-list", "list",
+    "resources", "tutorial", "tutorials", "course", "courses", "book",
+    "books", "paper-list", "papers", "survey", "interview", "roadmap",
+    "cheatsheet", "learning-resources",
+]
+# Manual blocklist: full names, e.g. "owner/repo".
+repos = []
+
+[[columns]]
+key = "agents"
+name_en = "AI Agents"
+name_zh = "AI 智能体"
+topics = [
+    "ai-agent", "ai-agents", "agent", "agents", "llm-agent",
+    "autonomous-agents", "multi-agent", "agentic-ai",
+]
+
+[[columns]]
+key = "quant"
+name_en = "Quant"
+name_zh = "量化"
+topics = [
+    "quant", "quantitative-finance", "quantitative-trading",
+    "algorithmic-trading", "backtesting", "trading-bot", "trading-strategies",
+]

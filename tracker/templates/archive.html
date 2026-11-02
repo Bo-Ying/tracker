@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "macros.html" import t %}
+{% block title %}{{ config.title }} · Archive{% endblock %}
+{% block content %}
+<section class="issue-head">
+  <p class="eyebrow">{{ t("Archive", "往期") }}</p>
+  <h1>{{ t("All issues", "全部期数") }}</h1>
+</section>
+<ul class="archive">
+  {% for issue in issues %}
+  <li>
+    <a href="{{ root }}issues/{{ issue.label }}/">
+      <span class="archive-label">{{ issue.label }}</span>
+      <span class="archive-range">{{ t(issue.range_en, issue.range_zh) }}</span>
+      {% if issue.status == "baseline" %}<span class="badge badge-alt">{{ t("Baseline", "基线") }}</span>{% endif %}
+      {% if loop.first %}<span class="badge">{{ t("Latest", "最新") }}</span>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

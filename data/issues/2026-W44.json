@@ -1,0 +1,30 @@
+{
+ "label": "2026-W44",
+ "generated_at": "2026-11-02T13:53:52Z",
+ "status": "baseline",
+ "window": {
+  "end": "2026-11-02T13:53:52Z",
+  "hot_start": "2026-11-02T13:53:52Z",
+  "hot_days": 0,
+  "hot_target_days": 30,
+  "rising_start": "2026-10-26T13:53:52Z",
+  "rising_days": 0
+ },
+ "first_rankings_at": "2026-11-09T13:53:52Z",
+ "columns": [
+  {
+   "key": "agents",
+   "name_en": "AI Agents",
+   "name_zh": "AI 智能体",
+   "hot": [],
+   "rising": []
+  },
+  {
+   "key": "quant",
+   "name_en": "Quant",
+   "name_zh": "量化",
+   "hot": [],
+   "rising": []
+  }
+ ]
+}

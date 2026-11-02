@@ -1,0 +1,51 @@
+{% from "macros.html" import t %}
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ config.title }}{% endblock %}</title>
+<meta name="description" content="Weekly GitHub trending for AI agent and quant repositories.">
+<script>
+  try {
+    if (localStorage.getItem("tracker-lang") === "zh") {
+      document.documentElement.setAttribute("data-lang", "zh");
+      document.documentElement.lang = "zh-CN";
+    }
+  } catch (e) {}
+</script>
+<link rel="stylesheet" href="{{ root }}static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="{{ root }}">
+      <span class="brand-mark" aria-hidden="true">📈</span>
+      <span class="brand-text">
+        <span class="brand-title">{{ config.title }}</span>
+        <span class="brand-sub">{{ t("Weekly GitHub trending · AI Agents & Quant", "每周 GitHub 趋势 · AI 智能体与量化") }}</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="{{ root }}">{{ t("Latest", "最新") }}</a>
+      <a href="{{ root }}archive/">{{ t("Archive", "往期") }}</a>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-set-lang="en">EN</button>
+        <button type="button" data-set-lang="zh">中文</button>
+      </div>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer wrap">
+  <p>{{ t("Data from the GitHub API, sampled weekly. Gains are the difference between our own weekly star snapshots; the 30-day baseline is interpolated between snapshots.",
+         "数据来自 GitHub API，每周采样一次。新增 star 数是我们自己每周快照之间的差值；30 天前的基准值由前后两次快照插值估算。") }}</p>
+  <p>{{ t("Repos are classified by their GitHub topics. Forks, archived repos and resource lists are excluded. Chinese descriptions are machine-translated by Claude.",
+         "按 GitHub topics 归类，不含 fork、已归档仓库和资源合集。中文描述由 Claude 机器翻译。") }}</p>
+</footer>
+<script src="{{ root }}static/app.js"></script>
+</body>
+</html>
