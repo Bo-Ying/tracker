@@ -60,7 +60,8 @@ def _decorate(issue: dict, translations: dict[str, str]) -> dict:
     issue["generated_en"] = date_en(parse_time(issue["generated_at"]))
     issue["generated_zh"] = date_zh(parse_time(issue["generated_at"]))
     for col in issue["columns"]:
-        for lst in ("hot", "rising"):
+        for lst in ("all_time", "hot", "rising"):
+            col.setdefault(lst, [])
             for e in col[lst]:
                 e["description_zh"] = translations.get(e["description"]) or e.get("description_zh")
     return issue

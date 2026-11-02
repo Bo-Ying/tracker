@@ -16,6 +16,7 @@ class Column:
     name_en: str
     name_zh: str
     topics: tuple[str, ...]
+    all_time: bool = False
 
 
 @dataclass(frozen=True)
@@ -55,6 +56,7 @@ def load_config(path: Path = DEFAULT_CONFIG) -> Config:
                 name_en=c["name_en"],
                 name_zh=c["name_zh"],
                 topics=tuple(t.lower() for t in c["topics"]),
+                all_time=bool(c.get("all_time", False)),
             )
             for c in raw["columns"]
         )

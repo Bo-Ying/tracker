@@ -10,6 +10,7 @@ from .github import Repo
 from .snapshots import History, format_time, parse_time
 
 DAY = timedelta(days=1)
+LISTS = ("all_time", "hot", "rising")
 # A list needs at least this much history to be published.
 MIN_WINDOW = timedelta(days=6)
 
@@ -84,6 +85,12 @@ def rising_list(repos: list[Repo], history: History, start: datetime,
     return out
 
 
+def all_time_list(repos: list[Repo], size: int) -> list[Entry]:
+    """Most-starred repos ever; needs no history, so it works from the first run."""
+    top = sorted(repos, key=lambda r: (-r.stars, r.full_name))[:size]
+    return [_entry(r, 0) for r in top]
+
+
 def _entry(r: Repo, gain: int) -> Entry:
     return Entry(id=r.id, full_name=r.full_name, url=r.url, description=r.description,
                  language=r.language, stars=r.stars, gain=gain)
@@ -113,11 +120,13 @@ def build_issue(config: Config, all_repos: dict[int, Repo], by_column: dict[str,
         hot = hot_list(pool, history, hot_start, config.list_size) if hot_ok else []
         rising = (rising_list(pool, history, rising_start, config.list_size,
                               config.min_stars_rising) if rising_ok else [])
+        all_time = all_time_list(pool, config.list_size) if col.all_time else []
         prev = prev_cols.get(col.key, {})
         _apply_ranks(hot, prev.get("hot") if previous else None)
         _apply_ranks(rising, prev.get("rising") if previous else None)
+        _apply_ranks(all_time, prev.get("all_time") if previous else None)
         columns.append({"key": col.key, "name_en": col.name_en, "name_zh": col.name_zh,
-                        "hot": hot, "rising": rising})
+                        "hot": hot, "rising": rising, "all_time": all_time})
 
     _mark_duplicates(columns)
     hot_days = round(hot_window / DAY)
@@ -135,7 +144,7 @@ def build_issue(config: Config, all_repos: dict[int, Repo], by_column: dict[str,
         },
         "first_rankings_at": format_time(history.earliest + config.rising_days * DAY),
         "columns": [
-            {**c, "hot": [asdict(e) for e in c["hot"]], "rising": [asdict(e) for e in c["rising"]]}
+            {**c, **{k: [asdict(e) for e in c[k]] for k in LISTS}}
             for c in columns
         ],
     }

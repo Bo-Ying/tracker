@@ -46,6 +46,8 @@ topics = [
 key = "quant"
 name_en = "Quant"
 name_zh = "量化"
+# Show an "All-time top 10 by total stars" list at the top of this tab.
+all_time = true
 topics = [
     "quant", "quantitative-finance", "quantitative-trading",
     "algorithmic-trading", "backtesting", "trading-bot", "trading-strategies",

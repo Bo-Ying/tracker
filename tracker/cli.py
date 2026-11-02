@@ -13,7 +13,7 @@ from pathlib import Path
 
 from .config import ROOT, load_config
 from .github import GitHubSearch, collect
-from .rank import build_issue, issue_label
+from .rank import LISTS, build_issue, issue_label
 from .render import build_site
 from .snapshots import History, Snapshot, SnapshotStore
 from .translate import TranslationCache, translate_all
@@ -83,7 +83,7 @@ def cmd_update(args: argparse.Namespace) -> None:
     label = issue_label(now)
     issue = build_issue(config, all_repos, by_column, history, now, previous_issue(label))
 
-    texts = [e["description"] for c in issue["columns"] for k in ("hot", "rising") for e in c[k]]
+    texts = [e["description"] for c in issue["columns"] for k in LISTS for e in c[k]]
     cache = TranslationCache(TRANSLATIONS)
     if args.skip_translate:
         report = None
@@ -91,7 +91,7 @@ def cmd_update(args: argparse.Namespace) -> None:
         report = translate_all(texts, cache, config.translation_model)
         cache.save()
     for c in issue["columns"]:
-        for k in ("hot", "rising"):
+        for k in LISTS:
             for e in c[k]:
                 e["description_zh"] = cache.data.get(e["description"])
 
@@ -101,7 +101,8 @@ def cmd_update(args: argparse.Namespace) -> None:
     summary(f"## Tracker {label} ({issue['status']})")
     summary(f"- Candidates: {len(all_repos)} repos")
     for c in issue["columns"]:
-        summary(f"- {c['name_en']}: {len(c['hot'])} hot, {len(c['rising'])} rising")
+        summary(f"- {c['name_en']}: {len(c['hot'])} hot, {len(c['rising'])} rising, "
+                f"{len(c['all_time'])} all-time")
     if report:
         summary(f"- Translations: {report.translated} new, {report.cached} cached")
         for err in report.transient_errors:

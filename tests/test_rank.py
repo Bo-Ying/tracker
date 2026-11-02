@@ -102,3 +102,18 @@ def test_duplicate_badges():
     assert r2["also_in_list"] is True
     assert r2["also_in_columns"] == ["quant"]
     assert quant["hot"][0]["also_in_columns"] == ["agents"]
+
+
+def test_all_time_list_only_for_configured_columns_and_works_on_baseline():
+    repos = [repo(1, 100), repo(2, 90_000), repo(3, 500, name="awesome-quant")]
+    issue = _issue([Snapshot(day(0), {})], repos, day(0))
+    agents, quant = issue["columns"]
+    assert agents["all_time"] == []
+    assert [e["id"] for e in quant["all_time"]] == [2]  # only repo 2 is in quant
+    assert issue["status"] == "baseline"
+
+
+def test_all_time_excludes_resource_lists_and_sorts_by_stars():
+    from tracker.rank import all_time_list
+    out = all_time_list([repo(1, 10), repo(2, 30), repo(3, 20)], 2)
+    assert [e.id for e in out] == [2, 3]

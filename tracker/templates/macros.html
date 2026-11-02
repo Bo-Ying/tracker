@@ -1,1 +1,43 @@
 {% macro t(en, zh) %}<span class="en">{{ en }}</span><span class="zh">{{ zh }}</span>{% endmacro %}
+
+{% macro card(e, kind, columns_meta) %}
+<li class="card card-{{ kind }}">
+  <div class="rank">
+    <span class="rank-num">{{ "%02d"|format(e.rank) }}</span>
+    {% if e.is_new %}<span class="move new">NEW</span>
+    {% elif e.prev_rank and e.prev_rank > e.rank %}<span class="move up">▲{{ e.prev_rank - e.rank }}</span>
+    {% elif e.prev_rank and e.prev_rank < e.rank %}<span class="move down">▼{{ e.rank - e.prev_rank }}</span>
+    {% elif e.prev_rank %}<span class="move same">=</span>{% endif %}
+  </div>
+  <div class="body">
+    <a class="repo" href="{{ e.url }}" target="_blank" rel="noopener">
+      <span class="owner">{{ e.full_name.split("/")[0] }}/</span><span class="name">{{ e.full_name.split("/", 1)[1] }}</span>
+    </a>
+    {% if e.description %}
+    <p class="desc"><span class="en">{{ e.description }}</span><span class="zh">{{ e.description_zh or e.description }}</span></p>
+    {% endif %}
+    <div class="meta">
+      {% if e.language %}<span class="lang">{{ e.language }}</span>{% endif %}
+      {% if kind != "all_time" %}<span class="stars">★ {{ e.stars|num }}</span>{% endif %}
+      {% if e.also_in_list %}
+      <span class="badge">{% if kind == "hot" %}{{ t("Also Rising", "也在增长榜") }}{% else %}{{ t("Also Hot", "也在热门榜") }}{% endif %}</span>
+      {% endif %}
+      {% for other in e.also_in_columns %}{% set oc = columns_meta.get(other) %}{% if oc %}
+      <span class="badge badge-alt">{{ t("Also in " ~ oc.name_en, "也在" ~ oc.name_zh) }}</span>
+      {% endif %}{% endfor %}
+    </div>
+  </div>
+  <div class="metric">
+    {% if kind == "all_time" %}
+    <span class="metric-main">★ {{ e.stars|num }}</span>
+    <span class="metric-sub">{{ t("total", "总计") }}</span>
+    {% elif kind == "hot" %}
+    <span class="metric-main">{{ e.gain|signed }}</span>
+    <span class="metric-sub">{{ t("stars", "star") }}</span>
+    {% else %}
+    <span class="metric-main">{{ e.growth_pct|pct }}</span>
+    <span class="metric-sub">{{ e.gain|signed }} ★</span>
+    {% endif %}
+  </div>
+</li>
+{% endmacro %}
